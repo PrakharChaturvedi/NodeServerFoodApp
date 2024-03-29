@@ -1,9 +1,7 @@
-// Import necessary libraries
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/foodDeliveryApplication', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -15,7 +13,6 @@ mongoose.connect('mongodb://localhost:27017/foodDeliveryApplication', {
   console.error("Error connecting to MongoDB:", err);
 });
 
-// Define MongoDB Schema
 const productSchema = new mongoose.Schema({
   totalSize: Number,
   type_id: Number,
@@ -36,17 +33,15 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', productSchema);
 
-// Create Express app
 const app = express();
 
-// Middleware
 app.use(cors());
 
-// Define route to fetch products
+
 app.get('/getProducts', async (req, res) => {
   try {
     const products = await Product.find();
-    console.log('Retrieved products:', products);
+    console.log('Retrieved products:', products); 
     res.json(products);
   } catch (err) {
     console.error('Error:', err);
